@@ -1,15 +1,19 @@
 import Swal from 'sweetalert2'
 import Card from './Card'
 
-const Tabla = ({datos, valor}) => {
+const Tabla = ({datos, filtro}) => {
 
-    const nuevoValor = datos.filter((data) => data.symbol.toLowerCase().includes(valor.toLowerCase()))
-    if(nuevoValor == ''){
+    //const nuevoValor = datos.filter((data) => data.symbol.toLowerCase().includes(valor.toLowerCase()))
+    console.log(filtro)
+    let nuevoValor = datos.filter((data) => data.symbol.toLowerCase().includes(filtro.simbol.toLowerCase()))
+    .filter((data) => filtro.rankMin!=0?data.market_cap_rank >= filtro.rankMin:data)
+    .filter((data) => filtro.rankMax!=0?data.market_cap_rank <= filtro.rankMax:data);
+    /*if(nuevoValor == ''){
         Swal.fire({
             icon : 'error',
             text : `La crypto moneda ${valor} no existe`
         })
-    }
+    }*/
 
   return (
     <div className='row'>
